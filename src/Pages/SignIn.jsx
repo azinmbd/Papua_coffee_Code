@@ -23,15 +23,13 @@ const SignIn = () => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const refreshToken = useSelector((state) => state.auth.refreshToken);
-  const status = useSelector((state) => state.auth.status);
 
   useEffect(() => {
-
   }, [refreshToken, navigate]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleNotification = () => {
+  const handleNotification = (e) => {
         if (refreshToken) {
       setTimeout(() => navigate("/"), 600);
 
@@ -40,12 +38,7 @@ const SignIn = () => {
           Your login was successfull!
         </Alert>
       );
-    } else if (status=="error") {
-      return (
-        <Alert severity="error" sx={{ mt: 4 }}>
-          Your username or password is wrong!
-        </Alert>
-      )}
+    }
   }
   const handleSubmit = (e) => {
     e.preventDefault();

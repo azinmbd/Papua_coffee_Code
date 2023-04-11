@@ -3,7 +3,6 @@ import axios from "axios";
 
 const initialState = {
   refreshToken: null,
-  status: "",
 };
 
 const authSlice = createSlice({
@@ -20,13 +19,11 @@ const authSlice = createSlice({
     userInfo(state, action) {
       state.user = action.payload;
     },
-    loginError(state, action) {
-      state.status = action.payload;
-    },
+
   },
 });
 
-export const { loginSuccess, userInfo, logout, loginError } = authSlice.actions;
+export const { loginSuccess, userInfo, logout } = authSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -37,11 +34,9 @@ export const login = (email, password) => async (dispatch) => {
         password,
       }
     );
-
     dispatch(loginSuccess(response.data.data.refreshToken));
     dispatch(userInfo(response.data.data.users));
   } catch (error) {
-    dispatch(loginError("error"));
     console.log(error);
   }
 };
